@@ -7,7 +7,15 @@
   <!-- [excludeTargets]="excludeTargets" -->
   <h2 class="logo">POS</h2>
   <nav class="nav-links">
+    @for(item of sideNavItems; track item.name) {
     <a
+      [routerLink]="item.url"
+      [routerLinkActive]="'active'"
+      (click)="closeSidebarOnNavigate()"
+      >{{ item.name }}</a
+    >
+    }
+    <!-- <a
       routerLink="/products"
       routerLinkActive="active"
       (click)="closeSidebarOnNavigate()"
@@ -30,7 +38,7 @@
       routerLinkActive="active"
       (click)="closeSidebarOnNavigate()"
       >Cart</a
-    >
+    > -->
   </nav>
 
   <div class="sidebar-footer">
