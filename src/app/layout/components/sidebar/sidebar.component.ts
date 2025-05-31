@@ -2,10 +2,12 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ClickOutsideDirective } from '../../../shared/directives/click-outside.directive';
 import { UtilsService } from '../../../core/services/utils.service';
 import { AsyncPipe } from '@angular/common';
+import { navigationMenu } from '../../../core/constants/sidenav.constant';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
-  imports: [ClickOutsideDirective, AsyncPipe],
+  imports: [ClickOutsideDirective, AsyncPipe, RouterModule],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss',
 })
@@ -14,6 +16,7 @@ export class SidebarComponent {
   sidebarOpen = false;
   loggedIn = true;
   excludeTargets: HTMLElement[] = [];
+  sideNavItems = navigationMenu;
 
   constructor(public utilService: UtilsService) {}
 
