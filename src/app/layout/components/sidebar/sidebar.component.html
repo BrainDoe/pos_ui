@@ -1,0 +1,66 @@
+<aside
+  class="sidebar"
+  [class.open]="utilService.sidebarOpen$ | async"
+  appClickOutside
+  (appClickOutside)="closeSidebarOnOutsideClick()"
+>
+  <!-- [excludeTargets]="excludeTargets" -->
+  <h2 class="logo">Catalog</h2>
+  <nav class="nav-links">
+    <a
+      routerLink="/products"
+      routerLinkActive="active"
+      (click)="closeSidebarOnNavigate()"
+      >Dashboard</a
+    >
+    <a
+      routerLink="/products"
+      routerLinkActive="active"
+      (click)="closeSidebarOnNavigate()"
+      >Categories</a
+    >
+    <a
+      routerLink="/products"
+      routerLinkActive="active"
+      (click)="closeSidebarOnNavigate()"
+      >Products</a
+    >
+    <a
+      routerLink="/cart"
+      routerLinkActive="active"
+      (click)="closeSidebarOnNavigate()"
+      >Cart</a
+    >
+    <a
+      routerLink="/auth/login"
+      routerLinkActive="active"
+      (click)="closeSidebarOnNavigate()"
+      >Customers</a
+    >
+  </nav>
+
+  <div class="sidebar-footer">
+    <a routerLink="/settings" routerLinkActive="active">Settings</a>
+    @if(loggedIn) {
+    <a
+      routerLink="/profile"
+      routerLinkActive="active"
+      (click)="closeSidebarOnNavigate()"
+      >Profile</a
+    >
+    <a
+      routerLink="/auth/logout"
+      routerLinkActive="active"
+      (click)="closeSidebarOnNavigate()"
+      >Logout</a
+    >
+    } @else {
+    <a
+      routerLink="/auth/login"
+      routerLinkActive="active"
+      (click)="closeSidebarOnNavigate()"
+      >Login</a
+    >
+    }
+  </div>
+</aside>

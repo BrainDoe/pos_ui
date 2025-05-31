@@ -1,0 +1,18 @@
+<header class="topbar">
+  <div class="title">
+    <button #menuBtn class="menu-btn" (click)="toggleSidebar()">☰</button>
+    <h1>Product Catalog</h1>
+  </div>
+
+  <nav class="topbar-nav">
+    <a routerLink="/" routerLinkActive="active">Home</a>
+    <a routerLink="/about" routerLinkActive="active">About</a>
+    <a routerLink="/contact" routerLinkActive="active">Contact</a>
+    <a routerLink="/cart" routerLinkActive="active">Cart</a>
+    @if(loggedIn()) {
+    <a routerLink="/login" routerLinkActive="active">Logout</a>
+    } @else {
+    <a routerLink="/logout" class="logout" routerLinkActive="active">Login</a>
+    }
+  </nav>
+</header>

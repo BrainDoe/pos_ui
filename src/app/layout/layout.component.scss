@@ -1,0 +1,17 @@
+@import "../styling/variables.scss";
+
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+
+  .main {
+    flex: 1;
+    margin-left: 0;
+    display: flex;
+    flex-direction: column;
+
+    .content {
+      padding: 1.5rem;
+    }
+  }
+}
