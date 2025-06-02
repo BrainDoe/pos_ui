@@ -1,0 +1,11 @@
+<div class="product-card">
+  <div class="img-container">
+    <img [src]="product().images[0]" alt="{{ product().name }}" />
+  </div>
+  <div class="content">
+    <h2>{{ product().name }}</h2>
+    <p>{{ product().description }}</p>
+    <p class="price">N{{ product().price.toLocaleString() }}</p>
+    <button (click)="sendToInvoice(product())">Send To Invoice</button>
+  </div>
+</div>
