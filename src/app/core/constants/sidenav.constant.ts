@@ -26,15 +26,15 @@ export const navigationMenu: SideNavigation[] = [
     permissionKey: 'User',
   },
   {
-    name: 'Cart',
-    url: '/products/cart',
+    name: 'Invoice',
+    url: '/products/invoice',
     iconUrl: '',
     permissionKey: 'User',
   },
-  // {
-  //   name: 'Customers',
-  //   url: '/products/customers',
-  //   iconUrl: '',
-  //   permissionKey: 'User',
-  // },
+  {
+    name: 'Sales',
+    url: '/products/sales',
+    iconUrl: '',
+    permissionKey: 'User',
+  },
 ];
