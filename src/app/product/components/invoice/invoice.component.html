@@ -1,0 +1,50 @@
+<div class="invoice-container">
+  <h1>Invoice</h1>
+
+  <div class="invoice-wrapper">
+    <div class="invoice-header">
+      <h2>Invoice Number: {{ invoiceId }}</h2>
+      <p><strong>Date</strong>: {{ invoiceDate | date : "short" }}</p>
+    </div>
+
+    <div class="invoice-items">
+      <div class="item-header">
+        <div class="column name">Product</div>
+        <div class="column">Price</div>
+        <div class="column">Quantity</div>
+        <div class="column">Total</div>
+      </div>
+      @for(item of invoiceItems; track item.id) {
+      <div class="item">
+        <div class="close">
+          <span>x</span>
+        </div>
+        <div class="name">StrawBerry</div>
+        <div class="price">₦1,000</div>
+        <div class="quantity">
+          <select>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+        </div>
+        <div class="total">1,000</div>
+      </div>
+      }
+    </div>
+
+    <div class="invoice-total">
+      <strong>Total:</strong>
+      <span>₦1,000</span>
+    </div>
+
+    <div class="invoice-actions">
+      <button class="btn btn-neutral" (click)="clearInvoice()">
+        Clear Invoice
+      </button>
+      <button class="btn btn-primary" (click)="checkout()">Checkout</button>
+    </div>
+  </div>
+</div>
