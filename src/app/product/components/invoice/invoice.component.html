@@ -42,7 +42,7 @@
       <label for="paymentMethod">Payment Method:</label>
       <select id="paymentMethod" [(ngModel)]="selectedPaymentMethod">
         <option value="" disabled selected>Select Payment Method</option>
-        @for(method of paymentMethods; track method.value) {
+        @for(method of paymentMethods(); track method.value) {
         <option [value]="method.value">{{ method.label }}</option>
         }
       </select>
