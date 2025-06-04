@@ -1,4 +1,5 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
+import { InvoiceItem } from '../invoice/invoice.component';
 
 export interface Product {
   _id: string;
@@ -29,10 +30,16 @@ export interface Product {
   styleUrl: './product.component.scss',
 })
 export class ProductComponent {
+  invoiceProduct = output<InvoiceItem>();
   product = input.required<Product>();
 
   sendToInvoice(product: Product) {
-    // Logic to send product to invoice
-    console.log('Product sent to invoice:', product);
+    this.invoiceProduct.emit({
+      _id: product._id,
+      name: product.name,
+      price: product.price,
+      quantity: 1,
+      total: product.price,
+    });
   }
 }

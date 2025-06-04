@@ -3,8 +3,8 @@
 
   <div class="invoice-wrapper">
     <div class="invoice-header">
-      <h2>Invoice Number: {{ invoiceId }}</h2>
-      <p><strong>Date</strong>: {{ invoiceDate | date : "short" }}</p>
+      <h2>Invoice Number: {{ invoiceId() }}</h2>
+      <p><strong>Date</strong>: {{ invoiceDate() | date : "short" }}</p>
     </div>
 
     <div class="invoice-items">
@@ -14,34 +14,32 @@
         <div class="column">Quantity</div>
         <div class="column">Total</div>
       </div>
-      @for(item of invoiceItems; track item.id) {
+      @for(item of invoiceItems(); track item._id) {
       <div class="item">
-        <div class="close">
+        <div (click)="onRemoveItem(item._id)" class="close">
           <span>x</span>
         </div>
-        <div class="name">StrawBerry</div>
-        <div class="price">₦1,000</div>
+        <div class="name">{{ item.name }}</div>
+        <div class="price">₦{{ item.price }}</div>
         <div class="quantity">
           <select>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
+            <option (click)="onUpdateQty(item)" [value]="item">
+              {{ item.quantity }}
+            </option>
           </select>
         </div>
-        <div class="total">1,000</div>
+        <div class="total">₦{{ item.total }}</div>
       </div>
       }
     </div>
 
     <div class="invoice-total">
       <strong>Total:</strong>
-      <span>₦1,000</span>
+      <span>₦{{ totalAmount() }}</span>
     </div>
 
     <div class="invoice-actions">
-      <button class="btn btn-neutral" (click)="clearInvoice()">
+      <button class="btn btn-neutral" (click)="onClearInvoice()">
         Clear Invoice
       </button>
       <button class="btn btn-primary" (click)="checkout()">Checkout</button>

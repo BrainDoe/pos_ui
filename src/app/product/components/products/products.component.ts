@@ -1,7 +1,7 @@
 import { JsonPipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { ProductComponent } from '../product/product.component';
-import { InvoiceComponent } from '../invoice/invoice.component';
+import { InvoiceComponent, InvoiceItem } from '../invoice/invoice.component';
 
 @Component({
   selector: 'app-products',
@@ -10,6 +10,7 @@ import { InvoiceComponent } from '../invoice/invoice.component';
   styleUrl: './products.component.scss',
 })
 export class ProductsComponent {
+  invoiceItems = signal<InvoiceItem[]>([]);
   products = [
     {
       _id: '6839878988c00a3f82b6192d',
@@ -177,8 +178,47 @@ export class ProductsComponent {
     },
   ];
 
-  sendToInvoice(product: object) {
-    // Logic to send the product to the invoice
-    console.log('Product sent to invoice:', product);
+  handleAddToInvoice(item: InvoiceItem) {
+    const existingItem = this.invoiceItems().find((i) => i._id === item._id);
+    if (existingItem) {
+      // If item already exists, update its quantity and total
+      this.invoiceItems.update((items) =>
+        items.map((i) =>
+          i._id === item._id
+            ? {
+                ...i,
+                quantity: i.quantity + 1,
+                total: (i.quantity + 1) * i.price,
+              }
+            : i
+        )
+      );
+    } else {
+      this.invoiceItems.update((items) => [...items, item]);
+    }
+  }
+
+  updateQty(invoiceItem: any) {
+    this.invoiceItems.update((items) =>
+      items.map((item) =>
+        item._id === invoiceItem._id
+          ? {
+              ...item,
+              quantity: invoiceItem.quantity,
+              total: invoiceItem.quantity * (item.price || 0),
+            }
+          : item
+      )
+    );
+  }
+
+  removeItem(itemId: string) {
+    this.invoiceItems.update((items) =>
+      items.filter((item) => item._id !== itemId)
+    );
+  }
+
+  clearInvoice() {
+    this.invoiceItems.set([]);
   }
 }
