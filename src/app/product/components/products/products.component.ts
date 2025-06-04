@@ -11,6 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   styleUrl: './products.component.scss',
 })
 export class ProductsComponent {
+  invoiceOpened = signal<boolean>(false);
   invoiceItems = signal<InvoiceItem[]>([]);
   products = [
     {
@@ -81,10 +82,84 @@ export class ProductsComponent {
       createdAt: '2025-05-29T09:31:33.664Z',
       updatedAt: '2025-05-29T09:31:33.664Z',
     },
+    {
+      barcode: '1748869931780',
+      _id: 'adfafasdfa',
+      name: 'Strawberry',
+      description: 'Strawberry fruits',
+      price: 50,
+      costPrice: 35,
+      discountedPrice: 0,
+      minQuantity: 5,
+      isActive: true,
+      isFeatured: true,
+      images: [
+        'https://res.cloudinary.com/dur8zyxon/image/upload/v1748600713/product-pos/brybnpp2kcmfsw5nvewn.jpg',
+      ],
+      discountPercentage: 0,
+      stock: 100,
+      category: {
+        _id: '68374f35a8fe832d3008f854',
+        name: 'Fruits',
+        description: 'Edible fruits',
+      },
+      createdAt: '2025-05-29T09:31:33.664Z',
+      updatedAt: '2025-05-29T09:31:33.664Z',
+    },
+    {
+      barcode: 'lk;jhjkasdf',
+      _id: 'adfafasdfa',
+      name: 'Strawberry',
+      description: 'Strawberry fruits',
+      price: 50,
+      costPrice: 35,
+      discountedPrice: 0,
+      minQuantity: 5,
+      isActive: true,
+      isFeatured: true,
+      images: [
+        'https://res.cloudinary.com/dur8zyxon/image/upload/v1748600713/product-pos/brybnpp2kcmfsw5nvewn.jpg',
+      ],
+      discountPercentage: 0,
+      stock: 100,
+      category: {
+        _id: '68374f35a8fe832d3008f854',
+        name: 'Fruits',
+        description: 'Edible fruits',
+      },
+      createdAt: '2025-05-29T09:31:33.664Z',
+      updatedAt: '2025-05-29T09:31:33.664Z',
+    },
+    {
+      barcode: 'ertyerys',
+      _id: 'adfafasdfa',
+      name: 'Strawberry',
+      description: 'Strawberry fruits',
+      price: 50,
+      costPrice: 35,
+      discountedPrice: 0,
+      minQuantity: 5,
+      isActive: true,
+      isFeatured: true,
+      images: [
+        'https://res.cloudinary.com/dur8zyxon/image/upload/v1748600713/product-pos/brybnpp2kcmfsw5nvewn.jpg',
+      ],
+      discountPercentage: 0,
+      stock: 100,
+      category: {
+        _id: '68374f35a8fe832d3008f854',
+        name: 'Fruits',
+        description: 'Edible fruits',
+      },
+      createdAt: '2025-05-29T09:31:33.664Z',
+      updatedAt: '2025-05-29T09:31:33.664Z',
+    },
   ];
   searchTerm = signal<string>('');
 
   handleAddToInvoice(item: InvoiceItem) {
+    this.invoiceOpened.set(true);
+
     const existingItem = this.invoiceItems().find((i) => i._id === item._id);
     if (existingItem) {
       // If item already exists, update its quantity and total
@@ -127,14 +202,19 @@ export class ProductsComponent {
   searchProducts() {
     const term = this.searchTerm().toLowerCase();
     if (term && term.length < 3) {
-      return this.products.filter((product) =>
+      console.log(term);
+      const filteredProducts = this.products.filter((product) =>
         product.name.toLowerCase().includes(term)
       );
+
+      this.products = filteredProducts;
+      return this.products;
     }
     return this.products;
   }
 
   clearInvoice() {
     this.invoiceItems.set([]);
+    this.invoiceOpened.set(false);
   }
 }
