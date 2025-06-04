@@ -36,6 +36,8 @@ export class InvoiceComponent {
 
   onClearInvoice() {
     this.clearInvoice.emit();
+    this.invoiceId.set('');
+    this.invoiceDate.set('');
   }
 
   checkout() {}
