@@ -84,7 +84,7 @@ export class ProductsComponent {
     },
     {
       barcode: '1748869931780',
-      _id: 'adfafasdfa',
+      _id: '1',
       name: 'Strawberry',
       description: 'Strawberry fruits',
       price: 50,
@@ -108,7 +108,7 @@ export class ProductsComponent {
     },
     {
       barcode: 'lk;jhjkasdf',
-      _id: 'adfafasdfa',
+      _id: '2',
       name: 'Strawberry',
       description: 'Strawberry fruits',
       price: 50,

@@ -38,6 +38,16 @@
       <span>₦{{ totalAmount() }}</span>
     </div>
 
+    <div class="payment-method">
+      <label for="paymentMethod">Payment Method:</label>
+      <select id="paymentMethod" [(ngModel)]="selectedPaymentMethod">
+        <option value="" disabled selected>Select Payment Method</option>
+        @for(method of paymentMethods; track method.value) {
+        <option [value]="method.value">{{ method.label }}</option>
+        }
+      </select>
+    </div>
+
     <div class="invoice-actions">
       <button class="btn btn-neutral" (click)="onClearInvoice()">
         Clear Invoice
