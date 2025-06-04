@@ -10,7 +10,12 @@
       }
     </div>
     <div class="invoice-wrapper">
-      <app-invoice [invoiceItems]="invoiceItems()"></app-invoice>
+      <app-invoice
+        [invoiceItems]="invoiceItems()"
+        (removeItem)="removeItem($event)"
+        (updateQuantity)="updateQty($event)"
+        (clearInvoice)="clearInvoice()"
+      ></app-invoice>
     </div>
   </div>
 </div>
