@@ -24,11 +24,11 @@ export interface InvoiceItem extends Pick<Product, '_id' | 'price' | 'name'> {
 export class InvoiceComponent {
   invoiceId = signal<string>(`INV-${Math.floor(Math.random() * 1000000)}`);
   invoiceDate = signal<string>(new Date().toLocaleDateString());
-  paymentMethods = [
+  paymentMethods = signal<{ label: string; value: string }[]>([
     { label: 'Cash', value: 'Cash' },
     { label: 'Card', value: 'Card' },
     { label: 'Bank Transfer', value: 'Bank Transfer' },
-  ];
+  ]);
   selectedPaymentMethod = model<string>('Cash');
   invoiceItems = input.required<InvoiceItem[]>();
   updateQuantity = output<InvoiceItem>();

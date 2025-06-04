@@ -12,11 +12,15 @@
   </div>
   <div class="wrapper">
     <div [class.products-full-width]="invoiceOpened()" class="product-list">
-      @for(product of products; track product._id) {
+      @for(product of productResource.value(); track product._id) {
       <app-product
         [product]="product"
         (invoiceProduct)="handleAddToInvoice($event)"
       ></app-product>
+      } @if(productResource.isLoading()) {
+      <div class="loading">
+        <mat-spinner diameter="50"></mat-spinner>
+      </div>
       }
     </div>
     @if(invoiceOpened()) {

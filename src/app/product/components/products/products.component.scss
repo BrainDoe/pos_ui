@@ -68,5 +68,15 @@
       margin-right: 10px;
       flex: 1;
     }
+
+    .loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      width: 100%;
+      font-size: 1.5rem;
+      color: #434343;
+    }
   }
 }
