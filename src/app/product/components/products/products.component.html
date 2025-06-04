@@ -3,11 +3,14 @@
   <div class="wrapper">
     <div class="product-list">
       @for(product of products; track product._id) {
-      <app-product [product]="product"></app-product>
+      <app-product
+        [product]="product"
+        (invoiceProduct)="handleAddToInvoice($event)"
+      ></app-product>
       }
     </div>
     <div class="invoice-wrapper">
-      <app-invoice></app-invoice>
+      <app-invoice [invoiceItems]="invoiceItems()"></app-invoice>
     </div>
   </div>
 </div>
