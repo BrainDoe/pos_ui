@@ -4,7 +4,7 @@ import { LayoutComponent } from './layout/layout.component';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'auth',
+    redirectTo: 'products',
     pathMatch: 'full',
   },
   {
