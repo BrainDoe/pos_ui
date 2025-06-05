@@ -1,4 +1,5 @@
-@import "../../../styling/variables.scss";
+// @import "../../../styling/variables.scss";
+@use "../../../styling/variables" as *;
 
 .sidebar {
   width: $app-sidebar-width;
