@@ -55,6 +55,7 @@
       margin: 10px 0;
       border-radius: 5px;
       position: relative;
+      width: 100%;
 
       .close {
         cursor: pointer;
@@ -89,26 +90,45 @@
         text-align: left;
       }
 
-      select {
-        width: 50px;
-        padding: 5px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        background-color: #f9f9f9;
-        font-size: 14px;
-        color: #434343;
-        outline: none;
-        cursor: pointer;
+      .price {
+        width: 20%;
+        text-align: center;
+      }
 
-        &:hover {
-          border-color: #888;
-        }
+      .quantity {
+        width: 20%;
+        text-align: right;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
 
-        &:focus {
-          border-color: #bcc8d6;
+        button {
+          padding: 5px 10px;
+          border-radius: 5px;
+          border: none;
+          background-color: #bcc8d6;
+          color: #434343;
+          cursor: pointer;
+          font-size: 14px;
+          transition: background-color 0.3s ease;
           box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
             rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+
+          &:hover {
+            background-color: #b3cae5;
+          }
         }
+
+        span {
+          font-size: 16px;
+          color: #434343;
+          margin: 5px;
+        }
+      }
+
+      .total {
+        width: 20%;
+        text-align: right;
       }
     }
 
