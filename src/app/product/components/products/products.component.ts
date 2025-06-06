@@ -8,11 +8,16 @@ import {
   ResourceLoaderParams,
   signal,
 } from '@angular/core';
-import { Product, ProductComponent } from '../product/product.component';
-import { InvoiceComponent, InvoiceItem } from '../invoice/invoice.component';
+import { ProductComponent } from '../product/product.component';
+import { InvoiceComponent } from '../invoice/invoice.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ProductService } from '../../../core/services/product.service';
+import {
+  InvoiceItem,
+  Product,
+  ProductService,
+} from '../../../core/services/product.service';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { ResourceStatus } from '@angular/core';
 
 @Component({
   selector: 'app-products',
@@ -26,9 +31,11 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
   styleUrl: './products.component.scss',
 })
 export class ProductsComponent {
+  productService = inject(ProductService);
+
   invoiceOpened = signal<boolean>(false);
-  invoiceItems = signal<InvoiceItem[]>([]);
-  products = signal<Product[]>([
+  invoiceItems = this.productService.invoiceItems; // signal<InvoiceItem[]>([]);
+  products = signal<Product[] | undefined>([
     // {
     //   _id: '6839878988c00a3f82b6192d',
     //   name: 'Cucumber',
@@ -170,9 +177,9 @@ export class ProductsComponent {
     //   updatedAt: '2025-05-29T09:31:33.664Z',
     // },
   ]);
+  loading = signal<boolean>(false);
+  error = signal<any>(null);
   searchTerm = signal<string>('');
-
-  productService = inject(ProductService);
 
   productResource = resource<Product[], string>({
     request: this.searchTerm,
@@ -185,50 +192,56 @@ export class ProductsComponent {
   handleAddToInvoice(item: InvoiceItem) {
     this.invoiceOpened.set(true);
 
-    const existingItem = this.invoiceItems().find((i) => i._id === item._id);
-    if (existingItem) {
-      // If item already exists, update its quantity and total
-      this.invoiceItems.update((items) =>
-        items.map((i) =>
-          i._id === item._id
-            ? {
-                ...i,
-                quantity: i.quantity + 1,
-                total: (i.quantity + 1) * i.price,
-              }
-            : i
-        )
-      );
-    } else {
-      this.invoiceItems.update((items) => [...items, item]);
-    }
+    this.productService.addToInvoice(item);
+    // const existingItem = this.invoiceItems().find((i) => i._id === item._id);
+    // if (existingItem) {
+    //   // If item already exists, update its quantity and total
+    //   this.invoiceItems.update((items) =>
+    //     items.map((i) =>
+    //       i._id === item._id
+    //         ? {
+    //             ...i,
+    //             quantity: i.quantity + 1,
+    //             total: (i.quantity + 1) * i.price,
+    //           }
+    //         : i
+    //     )
+    //   );
+    // } else {
+    //   this.invoiceItems.update((items) => [...items, item]);
+    // }
   }
 
-  updateQty(invoiceItem: { item: InvoiceItem; type: string }) {
-    const x = this.invoiceItems.update((items) =>
-      items.map((item) =>
-        item._id === invoiceItem.item._id
-          ? {
-              ...item,
-              quantity:
-                invoiceItem.type === 'increase'
-                  ? invoiceItem.item.quantity + 1
-                  : Math.max(1, invoiceItem.item.quantity - 1),
-              total:
-                (invoiceItem.type === 'increase'
-                  ? invoiceItem.item.quantity + 1
-                  : Math.max(1, invoiceItem.item.quantity - 1)) *
-                (item.price || 0),
-            }
-          : item
-      )
-    );
+  updateQty(invoiceItem: { item: InvoiceItem; type: 'increase' | 'decrease' }) {
+    this.productService.updateQuantity({
+      invoiceItem: invoiceItem.item,
+      type: invoiceItem.type,
+    });
+    // const x = this.invoiceItems.update((items) =>
+    //   items.map((item) =>
+    //     item._id === invoiceItem.item._id
+    //       ? {
+    //           ...item,
+    //           quantity:
+    //             invoiceItem.type === 'increase'
+    //               ? invoiceItem.item.quantity + 1
+    //               : Math.max(1, invoiceItem.item.quantity - 1),
+    //           total:
+    //             (invoiceItem.type === 'increase'
+    //               ? invoiceItem.item.quantity + 1
+    //               : Math.max(1, invoiceItem.item.quantity - 1)) *
+    //             (item.price || 0),
+    //         }
+    //       : item
+    //   )
+    // );
   }
 
   removeItem(itemId: string) {
-    this.invoiceItems.update((items) =>
-      items.filter((item) => item._id !== itemId)
-    );
+    this.productService.removeItem(itemId);
+    // this.invoiceItems.update((items) =>
+    //   items.filter((item) => item._id !== itemId)
+    // );
   }
 
   searchProducts() {
@@ -247,7 +260,8 @@ export class ProductsComponent {
   }
 
   clearInvoice() {
-    this.invoiceItems.set([]);
     this.invoiceOpened.set(false);
+    this.productService.clearInvoice();
+    // this.invoiceItems.set([]);
   }
 }
