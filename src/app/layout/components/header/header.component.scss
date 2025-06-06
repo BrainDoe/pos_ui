@@ -7,6 +7,11 @@
   border-bottom: 1px solid #ddd;
 
   .title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+
     .menu-btn {
       background: none;
       border: none;
@@ -29,6 +34,11 @@
     display: flex;
     align-items: center;
     margin-left: auto;
+
+    // Add this class to remove the nav menu on small screens
+    @media (max-width: 768px) {
+      display: none;
+    }
 
     a {
       display: inline-block;

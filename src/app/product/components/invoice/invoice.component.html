@@ -22,10 +22,15 @@
         <div class="name">{{ item.name }}</div>
         <div class="price">₦{{ item.price }}</div>
         <div class="quantity">
-          <select>
-            <option (click)="onUpdateQty(item)" [value]="item">
-              {{ item.quantity }}
+          <select (change)="onUpdateQty(item)">
+            @for(qty of generateQuantityArray(item.quantity); track qty) {
+            <option [value]="qty">
+              {{ qty }}
             </option>
+            }
+            <!-- <option (click)="onUpdateQty(item)" [value]="item">
+              {{ item.quantity }}
+            </option> -->
           </select>
         </div>
         <div class="total">₦{{ item.total }}</div>

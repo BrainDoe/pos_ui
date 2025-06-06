@@ -6,8 +6,8 @@
 
   .header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
     width: 70%;
     padding: 10px 0;
     margin-bottom: 15px;
@@ -37,6 +37,27 @@
         }
       }
     }
+
+    @media (max-width: 768px) {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-direction: column;
+      gap: 10px;
+
+      h1 {
+        font-size: 1.8rem;
+        color: #434343;
+      }
+
+      .search {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        border-radius: 50px;
+      }
+    }
   }
 
   .wrapper {
@@ -55,6 +76,10 @@
       flex: 1.4;
       margin-right: 10px;
       padding-bottom: 15px;
+
+      @media (max-width: 768px) {
+        width: 100%;
+      }
     }
 
     .products-full-width {
@@ -67,6 +92,10 @@
       border-radius: 5px;
       margin-right: 10px;
       flex: 1;
+
+      @media (max-width: 768px) {
+        display: none;
+      }
     }
 
     .loading {
@@ -76,6 +105,11 @@
       height: 100%;
       width: 100%;
       font-size: 1.5rem;
+    }
+
+    @media (max-width: 768px) {
+      width: 100%;
+      height: auto;
     }
   }
 }
