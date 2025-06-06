@@ -22,9 +22,7 @@ export class ProductService {
   );
 
   // Computed signal for invoice item count
-  invoiceItemCount = computed(() =>
-    this._invoiceItems().reduce((acc, item) => acc + item.quantity, 0)
-  );
+  invoiceItemCount = computed(() => this._invoiceItems().length);
 
   paymentMethods = signal<{ label: string; value: string }[]>([
     { label: 'Cash', value: 'Cash' },

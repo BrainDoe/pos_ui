@@ -1,9 +1,10 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, ViewChild } from '@angular/core';
 import { ClickOutsideDirective } from '../../../shared/directives/click-outside.directive';
 import { UtilsService } from '../../../core/services/utils.service';
 import { AsyncPipe } from '@angular/common';
 import { navigationMenu } from '../../../core/constants/sidenav.constant';
 import { RouterModule } from '@angular/router';
+import { ProductService } from '../../../core/services/product.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -12,11 +13,13 @@ import { RouterModule } from '@angular/router';
   styleUrl: './sidebar.component.scss',
 })
 export class SidebarComponent {
+  productService = inject(ProductService);
   @ViewChild('menuBtn') menuBtnRef!: ElementRef;
   sidebarOpen = false;
   loggedIn = true;
   excludeTargets: HTMLElement[] = [];
   sideNavItems = navigationMenu;
+  invoiceCount = this.productService.invoiceItemCount;
 
   constructor(public utilService: UtilsService) {}
 
