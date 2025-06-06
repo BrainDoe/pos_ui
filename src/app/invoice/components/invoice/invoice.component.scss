@@ -135,8 +135,13 @@
       }
 
       @media (max-width: 768px) {
-        padding: 0;
+        padding: 0 7px;
         .quantity {
+          width: 20%;
+          text-align: left;
+        }
+        .price {
+          width: 10%;
           text-align: left;
         }
       }
