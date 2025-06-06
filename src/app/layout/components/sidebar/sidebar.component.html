@@ -12,33 +12,13 @@
       [routerLink]="item.url"
       [routerLinkActive]="'active'"
       (click)="closeSidebarOnNavigate()"
-      >{{ item.name }}</a
     >
+      <span>{{ item.name }}</span>
+      @if(item.name === 'Invoice' &&invoiceCount()) {
+      <span class="invoice-count">{{ invoiceCount() }}</span>
+      }
+    </a>
     }
-    <!-- <a
-      routerLink="/products"
-      routerLinkActive="active"
-      (click)="closeSidebarOnNavigate()"
-      >Dashboard</a
-    >
-    <a
-      routerLink="/products"
-      routerLinkActive="active"
-      (click)="closeSidebarOnNavigate()"
-      >Categories</a
-    >
-    <a
-      routerLink="/products"
-      routerLinkActive="active"
-      (click)="closeSidebarOnNavigate()"
-      >Products</a
-    >
-    <a
-      routerLink="/cart"
-      routerLinkActive="active"
-      (click)="closeSidebarOnNavigate()"
-      >Cart</a
-    > -->
   </nav>
 
   <div class="sidebar-footer">

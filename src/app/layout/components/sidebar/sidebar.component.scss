@@ -43,6 +43,17 @@
         font-weight: bold;
         border-left: 4px solid #4caf50;
       }
+
+      .invoice-count {
+        background-color: #4caf50;
+        color: white;
+        border-radius: 50%;
+        padding: 0.2rem 0.5rem;
+        font-size: 0.8rem;
+        margin-left: 0.5rem;
+        vertical-align: middle;
+        display: inline-block;
+      }
     }
   }
 
