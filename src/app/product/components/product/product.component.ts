@@ -1,28 +1,6 @@
 import { Component, input, output } from '@angular/core';
-import { InvoiceItem } from '../invoice/invoice.component';
+import { InvoiceItem, Product } from '../../../core/services/product.service';
 
-export interface Product {
-  _id: string;
-  name: string;
-  description: string;
-  price: number;
-  costPrice: number;
-  discountedPrice: number;
-  minQuantity: number;
-  isActive: boolean;
-  isFeatured: boolean;
-  images: string[];
-  discountPercentage: number;
-  stock: number;
-  barcode: string;
-  category: {
-    _id: string;
-    name: string;
-    description: string;
-  } | null;
-  createdAt: string;
-  updatedAt: string;
-}
 @Component({
   selector: 'app-product',
   imports: [],

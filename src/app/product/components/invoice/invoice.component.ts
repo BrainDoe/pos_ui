@@ -7,13 +7,8 @@ import {
   output,
   signal,
 } from '@angular/core';
-import { Product } from '../product/product.component';
 import { FormsModule } from '@angular/forms';
-
-export interface InvoiceItem extends Pick<Product, '_id' | 'price' | 'name'> {
-  quantity: number;
-  total: number;
-}
+import { InvoiceItem } from '../../../core/services/product.service';
 
 @Component({
   selector: 'app-invoice',
@@ -31,7 +26,10 @@ export class InvoiceComponent {
   ]);
   selectedPaymentMethod = model<string>('');
   invoiceItems = input.required<InvoiceItem[]>();
-  updateQuantity = output<{ item: InvoiceItem; type: string }>();
+  updateQuantity = output<{
+    item: InvoiceItem;
+    type: 'increase' | 'decrease';
+  }>();
   removeItem = output<string>();
   clearInvoice = output();
 
@@ -39,7 +37,7 @@ export class InvoiceComponent {
     this.invoiceItems().reduce((acc, item) => acc + item.total, 0)
   );
 
-  onUpdateQty(invoiceItem: InvoiceItem, type: string) {
+  onUpdateQty(invoiceItem: InvoiceItem, type: 'increase' | 'decrease') {
     this.updateQuantity.emit({ item: invoiceItem, type });
   }
 

@@ -8,11 +8,16 @@ import {
   ResourceLoaderParams,
   signal,
 } from '@angular/core';
-import { Product, ProductComponent } from '../product/product.component';
-import { InvoiceComponent, InvoiceItem } from '../invoice/invoice.component';
+import { ProductComponent } from '../product/product.component';
+import { InvoiceComponent } from '../invoice/invoice.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ProductService } from '../../../core/services/product.service';
+import {
+  InvoiceItem,
+  Product,
+  ProductService,
+} from '../../../core/services/product.service';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { ResourceStatus } from '@angular/core';
 
 @Component({
   selector: 'app-products',
@@ -26,9 +31,11 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
   styleUrl: './products.component.scss',
 })
 export class ProductsComponent {
+  productService = inject(ProductService);
+
   invoiceOpened = signal<boolean>(false);
-  invoiceItems = signal<InvoiceItem[]>([]);
-  products = signal<Product[]>([
+  invoiceItems = this.productService.invoiceItems;
+  products = signal<Product[] | undefined>([
     // {
     //   _id: '6839878988c00a3f82b6192d',
     //   name: 'Cucumber',
@@ -49,130 +56,10 @@ export class ProductsComponent {
     //   createdAt: '2025-05-30T10:25:13.657Z',
     //   updatedAt: '2025-05-30T10:25:13.657Z',
     // },
-    // {
-    //   _id: '68382ef286a84126a2b9b92e',
-    //   name: 'Avacado',
-    //   description: 'Avacado fruits',
-    //   price: 50,
-    //   costPrice: 35,
-    //   discountedPrice: 0,
-    //   minQuantity: 5,
-    //   isActive: true,
-    //   isFeatured: true,
-    //   images: [
-    //     'https://res.cloudinary.com/dur8zyxon/image/upload/v1748600713/product-pos/brybnpp2kcmfsw5nvewn.jpg',
-    //   ],
-    //   discountPercentage: 0,
-    //   stock: 100,
-    //   barcode: '1748512449428',
-    //   category: {
-    //     _id: '68374f35a8fe832d3008f854',
-    //     name: 'Fruits',
-    //     description: 'Edible fruits',
-    //   },
-    //   createdAt: '2025-05-29T09:54:58.108Z',
-    //   updatedAt: '2025-05-29T09:54:58.108Z',
-    // },
-    // {
-    //   barcode: '1748869931780',
-    //   _id: '68382975bd37656c0c04e109',
-    //   name: 'Strawberry',
-    //   description: 'Strawberry fruits',
-    //   price: 50,
-    //   costPrice: 35,
-    //   discountedPrice: 0,
-    //   minQuantity: 5,
-    //   isActive: true,
-    //   isFeatured: true,
-    //   images: [
-    //     'https://res.cloudinary.com/dur8zyxon/image/upload/v1748600713/product-pos/brybnpp2kcmfsw5nvewn.jpg',
-    //   ],
-    //   discountPercentage: 0,
-    //   stock: 100,
-    //   category: {
-    //     _id: '68374f35a8fe832d3008f854',
-    //     name: 'Fruits',
-    //     description: 'Edible fruits',
-    //   },
-    //   createdAt: '2025-05-29T09:31:33.664Z',
-    //   updatedAt: '2025-05-29T09:31:33.664Z',
-    // },
-    // {
-    //   barcode: '1748869931780',
-    //   _id: '1',
-    //   name: 'Strawberry',
-    //   description: 'Strawberry fruits',
-    //   price: 50,
-    //   costPrice: 35,
-    //   discountedPrice: 0,
-    //   minQuantity: 5,
-    //   isActive: true,
-    //   isFeatured: true,
-    //   images: [
-    //     'https://res.cloudinary.com/dur8zyxon/image/upload/v1748600713/product-pos/brybnpp2kcmfsw5nvewn.jpg',
-    //   ],
-    //   discountPercentage: 0,
-    //   stock: 100,
-    //   category: {
-    //     _id: '68374f35a8fe832d3008f854',
-    //     name: 'Fruits',
-    //     description: 'Edible fruits',
-    //   },
-    //   createdAt: '2025-05-29T09:31:33.664Z',
-    //   updatedAt: '2025-05-29T09:31:33.664Z',
-    // },
-    // {
-    //   barcode: 'lk;jhjkasdf',
-    //   _id: '2',
-    //   name: 'Strawberry',
-    //   description: 'Strawberry fruits',
-    //   price: 50,
-    //   costPrice: 35,
-    //   discountedPrice: 0,
-    //   minQuantity: 5,
-    //   isActive: true,
-    //   isFeatured: true,
-    //   images: [
-    //     'https://res.cloudinary.com/dur8zyxon/image/upload/v1748600713/product-pos/brybnpp2kcmfsw5nvewn.jpg',
-    //   ],
-    //   discountPercentage: 0,
-    //   stock: 100,
-    //   category: {
-    //     _id: '68374f35a8fe832d3008f854',
-    //     name: 'Fruits',
-    //     description: 'Edible fruits',
-    //   },
-    //   createdAt: '2025-05-29T09:31:33.664Z',
-    //   updatedAt: '2025-05-29T09:31:33.664Z',
-    // },
-    // {
-    //   barcode: 'ertyerys',
-    //   _id: 'adfafasdfa',
-    //   name: 'Strawberry',
-    //   description: 'Strawberry fruits',
-    //   price: 50,
-    //   costPrice: 35,
-    //   discountedPrice: 0,
-    //   minQuantity: 5,
-    //   isActive: true,
-    //   isFeatured: true,
-    //   images: [
-    //     'https://res.cloudinary.com/dur8zyxon/image/upload/v1748600713/product-pos/brybnpp2kcmfsw5nvewn.jpg',
-    //   ],
-    //   discountPercentage: 0,
-    //   stock: 100,
-    //   category: {
-    //     _id: '68374f35a8fe832d3008f854',
-    //     name: 'Fruits',
-    //     description: 'Edible fruits',
-    //   },
-    //   createdAt: '2025-05-29T09:31:33.664Z',
-    //   updatedAt: '2025-05-29T09:31:33.664Z',
-    // },
   ]);
+  loading = signal<boolean>(false);
+  error = signal<any>(null);
   searchTerm = signal<string>('');
-
-  productService = inject(ProductService);
 
   productResource = resource<Product[], string>({
     request: this.searchTerm,
@@ -185,50 +72,18 @@ export class ProductsComponent {
   handleAddToInvoice(item: InvoiceItem) {
     this.invoiceOpened.set(true);
 
-    const existingItem = this.invoiceItems().find((i) => i._id === item._id);
-    if (existingItem) {
-      // If item already exists, update its quantity and total
-      this.invoiceItems.update((items) =>
-        items.map((i) =>
-          i._id === item._id
-            ? {
-                ...i,
-                quantity: i.quantity + 1,
-                total: (i.quantity + 1) * i.price,
-              }
-            : i
-        )
-      );
-    } else {
-      this.invoiceItems.update((items) => [...items, item]);
-    }
+    this.productService.addToInvoice(item);
   }
 
-  updateQty(invoiceItem: { item: InvoiceItem; type: string }) {
-    const x = this.invoiceItems.update((items) =>
-      items.map((item) =>
-        item._id === invoiceItem.item._id
-          ? {
-              ...item,
-              quantity:
-                invoiceItem.type === 'increase'
-                  ? invoiceItem.item.quantity + 1
-                  : Math.max(1, invoiceItem.item.quantity - 1),
-              total:
-                (invoiceItem.type === 'increase'
-                  ? invoiceItem.item.quantity + 1
-                  : Math.max(1, invoiceItem.item.quantity - 1)) *
-                (item.price || 0),
-            }
-          : item
-      )
-    );
+  updateQty(invoiceItem: { item: InvoiceItem; type: 'increase' | 'decrease' }) {
+    this.productService.updateQuantity({
+      invoiceItem: invoiceItem.item,
+      type: invoiceItem.type,
+    });
   }
 
   removeItem(itemId: string) {
-    this.invoiceItems.update((items) =>
-      items.filter((item) => item._id !== itemId)
-    );
+    this.productService.removeItem(itemId);
   }
 
   searchProducts() {
@@ -247,7 +102,7 @@ export class ProductsComponent {
   }
 
   clearInvoice() {
-    this.invoiceItems.set([]);
     this.invoiceOpened.set(false);
+    this.productService.clearInvoice();
   }
 }

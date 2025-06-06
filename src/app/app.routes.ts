@@ -4,7 +4,7 @@ import { LayoutComponent } from './layout/layout.component';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'products',
+    redirectTo: 'layout',
     pathMatch: 'full',
   },
   {
@@ -12,8 +12,8 @@ export const routes: Routes = [
     loadChildren: () => import('./auth/route').then((m) => m.routes),
   },
   {
-    path: 'products',
-    component: LayoutComponent,
-    loadChildren: () => import('./product/route').then((m) => m.routes),
+    path: 'layout',
+    // component: LayoutComponent,
+    loadChildren: () => import('./layout/layout.route').then((m) => m.routes),
   },
 ];
