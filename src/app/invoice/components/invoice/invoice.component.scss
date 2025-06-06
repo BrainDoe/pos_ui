@@ -133,6 +133,13 @@
         // width: 20%;
         text-align: right;
       }
+
+      @media (max-width: 768px) {
+        padding: 0;
+        .quantity {
+          text-align: left;
+        }
+      }
     }
 
     .invoice-total {
@@ -179,6 +186,21 @@
             rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
         }
       }
+
+      @media (max-width: 768px) {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-self: center;
+        label {
+          display: none;
+        }
+
+        select {
+          width: 100%;
+          padding: 8px;
+        }
+      }
     }
 
     .invoice-actions {
@@ -213,5 +235,9 @@
         }
       }
     }
+  }
+
+  @media (max-width: 768px) {
+    padding: 0;
   }
 }
