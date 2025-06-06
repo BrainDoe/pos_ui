@@ -6,6 +6,7 @@
     <h2>{{ product().name }}</h2>
     <p>{{ product().description }}</p>
     <p class="price">N{{ product().price.toLocaleString() }}</p>
+    <p class="stock-count">Stock Count: {{ product().stock }}</p>
     <button (click)="sendToInvoice(product())">Send To Invoice</button>
   </div>
 </div>

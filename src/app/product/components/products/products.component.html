@@ -17,6 +17,10 @@
         [product]="product"
         (invoiceProduct)="handleAddToInvoice($event)"
       ></app-product>
+      } @if (productResource.error()) {
+      <div style="padding: 20px; text-align: center">
+        {{ productResource.error() }}
+      </div>
       } @if(productResource.isLoading()) {
       <div class="loading">
         <mat-spinner diameter="50"></mat-spinner>

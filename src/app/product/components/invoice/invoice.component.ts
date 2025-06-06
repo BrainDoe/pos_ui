@@ -29,7 +29,7 @@ export class InvoiceComponent {
     { label: 'Card', value: 'Card' },
     { label: 'Bank Transfer', value: 'Bank Transfer' },
   ]);
-  selectedPaymentMethod = model<string>('Cash');
+  selectedPaymentMethod = model<string>('');
   invoiceItems = input.required<InvoiceItem[]>();
   updateQuantity = output<InvoiceItem>();
   removeItem = output<string>();
@@ -41,6 +41,10 @@ export class InvoiceComponent {
 
   onUpdateQty(invoiceItem: InvoiceItem) {
     this.updateQuantity.emit(invoiceItem);
+  }
+
+  generateQuantityArray(maxQuantity: number) {
+    return Array.from({ length: maxQuantity }, (_, i) => i + 1);
   }
 
   onRemoveItem(itemId: string) {
