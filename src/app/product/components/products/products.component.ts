@@ -204,14 +204,21 @@ export class ProductsComponent {
     }
   }
 
-  updateQty(invoiceItem: any) {
-    this.invoiceItems.update((items) =>
+  updateQty(invoiceItem: { item: InvoiceItem; type: string }) {
+    const x = this.invoiceItems.update((items) =>
       items.map((item) =>
-        item._id === invoiceItem._id
+        item._id === invoiceItem.item._id
           ? {
               ...item,
-              quantity: invoiceItem.quantity,
-              total: invoiceItem.quantity * (item.price || 0),
+              quantity:
+                invoiceItem.type === 'increase'
+                  ? invoiceItem.item.quantity + 1
+                  : Math.max(1, invoiceItem.item.quantity - 1),
+              total:
+                (invoiceItem.type === 'increase'
+                  ? invoiceItem.item.quantity + 1
+                  : Math.max(1, invoiceItem.item.quantity - 1)) *
+                (item.price || 0),
             }
           : item
       )

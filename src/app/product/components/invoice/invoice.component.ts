@@ -31,7 +31,7 @@ export class InvoiceComponent {
   ]);
   selectedPaymentMethod = model<string>('');
   invoiceItems = input.required<InvoiceItem[]>();
-  updateQuantity = output<InvoiceItem>();
+  updateQuantity = output<{ item: InvoiceItem; type: string }>();
   removeItem = output<string>();
   clearInvoice = output();
 
@@ -39,8 +39,8 @@ export class InvoiceComponent {
     this.invoiceItems().reduce((acc, item) => acc + item.total, 0)
   );
 
-  onUpdateQty(invoiceItem: InvoiceItem) {
-    this.updateQuantity.emit(invoiceItem);
+  onUpdateQty(invoiceItem: InvoiceItem, type: string) {
+    this.updateQuantity.emit({ item: invoiceItem, type });
   }
 
   generateQuantityArray(maxQuantity: number) {
