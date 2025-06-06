@@ -34,7 +34,7 @@ export class ProductsComponent {
   productService = inject(ProductService);
 
   invoiceOpened = signal<boolean>(false);
-  invoiceItems = this.productService.invoiceItems; // signal<InvoiceItem[]>([]);
+  invoiceItems = this.productService.invoiceItems;
   products = signal<Product[] | undefined>([
     // {
     //   _id: '6839878988c00a3f82b6192d',
@@ -56,126 +56,6 @@ export class ProductsComponent {
     //   createdAt: '2025-05-30T10:25:13.657Z',
     //   updatedAt: '2025-05-30T10:25:13.657Z',
     // },
-    // {
-    //   _id: '68382ef286a84126a2b9b92e',
-    //   name: 'Avacado',
-    //   description: 'Avacado fruits',
-    //   price: 50,
-    //   costPrice: 35,
-    //   discountedPrice: 0,
-    //   minQuantity: 5,
-    //   isActive: true,
-    //   isFeatured: true,
-    //   images: [
-    //     'https://res.cloudinary.com/dur8zyxon/image/upload/v1748600713/product-pos/brybnpp2kcmfsw5nvewn.jpg',
-    //   ],
-    //   discountPercentage: 0,
-    //   stock: 100,
-    //   barcode: '1748512449428',
-    //   category: {
-    //     _id: '68374f35a8fe832d3008f854',
-    //     name: 'Fruits',
-    //     description: 'Edible fruits',
-    //   },
-    //   createdAt: '2025-05-29T09:54:58.108Z',
-    //   updatedAt: '2025-05-29T09:54:58.108Z',
-    // },
-    // {
-    //   barcode: '1748869931780',
-    //   _id: '68382975bd37656c0c04e109',
-    //   name: 'Strawberry',
-    //   description: 'Strawberry fruits',
-    //   price: 50,
-    //   costPrice: 35,
-    //   discountedPrice: 0,
-    //   minQuantity: 5,
-    //   isActive: true,
-    //   isFeatured: true,
-    //   images: [
-    //     'https://res.cloudinary.com/dur8zyxon/image/upload/v1748600713/product-pos/brybnpp2kcmfsw5nvewn.jpg',
-    //   ],
-    //   discountPercentage: 0,
-    //   stock: 100,
-    //   category: {
-    //     _id: '68374f35a8fe832d3008f854',
-    //     name: 'Fruits',
-    //     description: 'Edible fruits',
-    //   },
-    //   createdAt: '2025-05-29T09:31:33.664Z',
-    //   updatedAt: '2025-05-29T09:31:33.664Z',
-    // },
-    // {
-    //   barcode: '1748869931780',
-    //   _id: '1',
-    //   name: 'Strawberry',
-    //   description: 'Strawberry fruits',
-    //   price: 50,
-    //   costPrice: 35,
-    //   discountedPrice: 0,
-    //   minQuantity: 5,
-    //   isActive: true,
-    //   isFeatured: true,
-    //   images: [
-    //     'https://res.cloudinary.com/dur8zyxon/image/upload/v1748600713/product-pos/brybnpp2kcmfsw5nvewn.jpg',
-    //   ],
-    //   discountPercentage: 0,
-    //   stock: 100,
-    //   category: {
-    //     _id: '68374f35a8fe832d3008f854',
-    //     name: 'Fruits',
-    //     description: 'Edible fruits',
-    //   },
-    //   createdAt: '2025-05-29T09:31:33.664Z',
-    //   updatedAt: '2025-05-29T09:31:33.664Z',
-    // },
-    // {
-    //   barcode: 'lk;jhjkasdf',
-    //   _id: '2',
-    //   name: 'Strawberry',
-    //   description: 'Strawberry fruits',
-    //   price: 50,
-    //   costPrice: 35,
-    //   discountedPrice: 0,
-    //   minQuantity: 5,
-    //   isActive: true,
-    //   isFeatured: true,
-    //   images: [
-    //     'https://res.cloudinary.com/dur8zyxon/image/upload/v1748600713/product-pos/brybnpp2kcmfsw5nvewn.jpg',
-    //   ],
-    //   discountPercentage: 0,
-    //   stock: 100,
-    //   category: {
-    //     _id: '68374f35a8fe832d3008f854',
-    //     name: 'Fruits',
-    //     description: 'Edible fruits',
-    //   },
-    //   createdAt: '2025-05-29T09:31:33.664Z',
-    //   updatedAt: '2025-05-29T09:31:33.664Z',
-    // },
-    // {
-    //   barcode: 'ertyerys',
-    //   _id: 'adfafasdfa',
-    //   name: 'Strawberry',
-    //   description: 'Strawberry fruits',
-    //   price: 50,
-    //   costPrice: 35,
-    //   discountedPrice: 0,
-    //   minQuantity: 5,
-    //   isActive: true,
-    //   isFeatured: true,
-    //   images: [
-    //     'https://res.cloudinary.com/dur8zyxon/image/upload/v1748600713/product-pos/brybnpp2kcmfsw5nvewn.jpg',
-    //   ],
-    //   discountPercentage: 0,
-    //   stock: 100,
-    //   category: {
-    //     _id: '68374f35a8fe832d3008f854',
-    //     name: 'Fruits',
-    //     description: 'Edible fruits',
-    //   },
-    //   createdAt: '2025-05-29T09:31:33.664Z',
-    //   updatedAt: '2025-05-29T09:31:33.664Z',
-    // },
   ]);
   loading = signal<boolean>(false);
   error = signal<any>(null);
@@ -193,23 +73,6 @@ export class ProductsComponent {
     this.invoiceOpened.set(true);
 
     this.productService.addToInvoice(item);
-    // const existingItem = this.invoiceItems().find((i) => i._id === item._id);
-    // if (existingItem) {
-    //   // If item already exists, update its quantity and total
-    //   this.invoiceItems.update((items) =>
-    //     items.map((i) =>
-    //       i._id === item._id
-    //         ? {
-    //             ...i,
-    //             quantity: i.quantity + 1,
-    //             total: (i.quantity + 1) * i.price,
-    //           }
-    //         : i
-    //     )
-    //   );
-    // } else {
-    //   this.invoiceItems.update((items) => [...items, item]);
-    // }
   }
 
   updateQty(invoiceItem: { item: InvoiceItem; type: 'increase' | 'decrease' }) {
@@ -217,31 +80,10 @@ export class ProductsComponent {
       invoiceItem: invoiceItem.item,
       type: invoiceItem.type,
     });
-    // const x = this.invoiceItems.update((items) =>
-    //   items.map((item) =>
-    //     item._id === invoiceItem.item._id
-    //       ? {
-    //           ...item,
-    //           quantity:
-    //             invoiceItem.type === 'increase'
-    //               ? invoiceItem.item.quantity + 1
-    //               : Math.max(1, invoiceItem.item.quantity - 1),
-    //           total:
-    //             (invoiceItem.type === 'increase'
-    //               ? invoiceItem.item.quantity + 1
-    //               : Math.max(1, invoiceItem.item.quantity - 1)) *
-    //             (item.price || 0),
-    //         }
-    //       : item
-    //   )
-    // );
   }
 
   removeItem(itemId: string) {
     this.productService.removeItem(itemId);
-    // this.invoiceItems.update((items) =>
-    //   items.filter((item) => item._id !== itemId)
-    // );
   }
 
   searchProducts() {
@@ -262,6 +104,5 @@ export class ProductsComponent {
   clearInvoice() {
     this.invoiceOpened.set(false);
     this.productService.clearInvoice();
-    // this.invoiceItems.set([]);
   }
 }

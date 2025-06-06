@@ -3,7 +3,6 @@ import {
   Injectable,
   Resource,
   resource,
-  ResourceStatus,
   Signal,
   signal,
 } from '@angular/core';
